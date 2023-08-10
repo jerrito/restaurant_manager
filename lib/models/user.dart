@@ -71,6 +71,7 @@ class Product implements Serializable {
   double? price;
 
 
+
   Product({
     this.productName,
     this.description,
@@ -113,4 +114,86 @@ class Product implements Serializable {
   String toString() {
     return jsonEncode(toJson());
   }
+}
+
+
+class Orders {
+  String? name;
+  int? quantity;
+  double? amount;
+  String? title;
+  double? totalAmount;
+  int? date;
+  String? id;
+  String? status;
+  bool? statusCheck;
+  String? customerName;
+  String? customerNumber;
+  String? customerEmail;
+  String? customerLocation;
+  double? customerLongitude;
+  double? customerLatitude;
+  String? driverLocation;
+  String? driverName;
+  String? driverStatus;
+  double? driverLongitude;
+  double? driverLatitude;
+
+  Orders({
+    this.name,
+    this.quantity,
+    this.amount,
+    this.title,
+    this.totalAmount,
+    this.date,
+    this.id,
+    this.status,
+    this.statusCheck,
+    this.customerName,
+    this.customerNumber,
+    this.customerEmail,
+    this.customerLocation,
+    this.customerLongitude,
+    this.customerLatitude,
+  });
+
+  factory Orders.fromRawJson(String str) => Orders.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory Orders.fromJson(Map<String, dynamic> json) => Orders(
+    name: json["name"],
+    quantity: json["quantity"],
+    amount: json["amount"]?.toDouble(),
+    title: json["title"],
+    totalAmount: json["totalAmount"]?.toDouble(),
+    date: json["date"],
+    id: json["id"],
+    status: json["status"],
+    statusCheck: json["statusCheck"],
+    customerName: json["customerName"],
+    customerNumber: json["customerNumber"],
+    customerEmail: json["customerEmail"],
+    customerLocation: json["customerLocation"],
+    customerLongitude: json["customerLongitude"]?.toDouble(),
+    customerLatitude: json["customerLatitude"]?.toDouble(),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "name": name,
+    "quantity": quantity,
+    "amount": amount,
+    "title": title,
+    "totalAmount": totalAmount,
+    "date": date,
+    "id": id,
+    "status": status,
+    "statusCheck": statusCheck,
+    "customerName": customerName,
+    "customerNumber": customerNumber,
+    "customerEmail": customerEmail,
+    "customerLocation": customerLocation,
+    "customerLongitude": customerLongitude,
+    "customerLatitude": customerLatitude,
+  };
 }
