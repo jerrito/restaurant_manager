@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
 //import 'package:manager/widgets/snackbars.dart';
 import 'package:manager/userProvider.dart';
+import 'package:manager/widgets/snackbars.dart';
 import 'package:open_street_map_search_and_pick/open_street_map_search_and_pick.dart';
 import 'package:manager/models/user.dart';
 import 'package:manager/databases/firebase_services.dart';
@@ -49,7 +50,7 @@ class _DeliveryMapState extends State<DeliveryMap> with OSMMixinObserver{
     customerProvider=context.read<CustomerProvider>();
     print(customerProvider?.appUser?.id);
     mapController.addObserver(this);
-    onSingleTap(GeoPoint(latitude: 5, longitude: -1));
+    //onSingleTap(GeoPoint(latitude: 5, longitude: -1));
   }
   Future<void> mapIsReady(bool isReady) {
     // TODO: implement mapIsReady
@@ -70,13 +71,13 @@ class _DeliveryMapState extends State<DeliveryMap> with OSMMixinObserver{
           latitude=mapController.listenerMapSingleTapping.value!.latitude;
           longitude=mapController.listenerMapSingleTapping.value!.longitude;
         });
-        showMap(latitude,longitude);
-        print(mapController.listenerMapSingleTapping.value?.latitude);
-        ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content:Text("Location: ${mapController.listenerMapSingleTapping.value}")));
+
+        // print(mapController.listenerMapSingleTapping.value?.latitude);
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //     SnackBar(content:Text("Location: ${mapController.listenerMapSingleTapping.value}")));
       }
     });
-    /// TODO
+    showMap(latitude,longitude);
   }
 
   // @override
@@ -235,7 +236,9 @@ class _DeliveryMapState extends State<DeliveryMap> with OSMMixinObserver{
                     buttonText: 'Set Current Location',
                     onPicked: (pickedData) async{
                      // print("ff");
-
+                      print(pickedData.latLong.latitude);
+                      print(pickedData.latLong.longitude);
+                      print(pickedData.address);
                         setState((){
                           longitude=pickedData.latLong.longitude;
                           latitude=pickedData.latLong.latitude;
@@ -244,12 +247,9 @@ class _DeliveryMapState extends State<DeliveryMap> with OSMMixinObserver{
 
 
 
+                     //await locationDetails(customer:customerProvider?.appUser);
 
-                     await locationDetails(customer:customerProvider?.appUser);
 
-                      // print(pickedData.latLong.latitude);
-                      // print(pickedData.latLong.longitude);
-                      // print(pickedData.address);
 
                     },
                   ),
@@ -267,7 +267,7 @@ class _DeliveryMapState extends State<DeliveryMap> with OSMMixinObserver{
     loc=location;
     lat=latitude;
 
-   customers?.longitude=long;
+    customers?.longitude=long;
     customers?.latitude=lat;
     customers?.location=loc;
     //customers?.id=customerProvider?.appUser?.id;
@@ -282,10 +282,10 @@ class _DeliveryMapState extends State<DeliveryMap> with OSMMixinObserver{
     if (result?.status == QueryStatus.successful) {
       //print("s");
       if(!context.mounted)return;
-      // PrimarySnackBar(context).displaySnackBar(
-      //   message: "Location updated successfully",
-      //   //backgroundColor: AppColors.colorPrimary,
-      // );
+      PrimarySnackBar(context).displaySnackBar(
+        message: "Location updated successfully",
+        //backgroundColor: AppColors.colorPrimary,
+      );
       Navigator.pushReplacementNamed(context, "home");
 
       return;
@@ -296,10 +296,10 @@ class _DeliveryMapState extends State<DeliveryMap> with OSMMixinObserver{
         isLoading = false;
       });
       if(!context.mounted)return;
-      // PrimarySnackBar(context).displaySnackBar(
-      //   message: "Error saving location details",
-      //  // backgroundColor: AppColors.errorRed,
-      // );
+      PrimarySnackBar(context).displaySnackBar(
+        message: "Error saving location details",
+        // backgroundColor: AppColors.errorRed,
+      );
     }
   }
 }

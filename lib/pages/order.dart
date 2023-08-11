@@ -405,8 +405,8 @@ class _OrderState extends State<Order> {
                                                                                                   driverRefresh=false;
                                                                                                   mapController.addMarker(
                                                                                                        geo.GeoPoint(
-                                                                                                         latitude: 5.1096452986370196,
-                                                                                                         longitude: -1.2982749938964844),
+                                                                                                         latitude:customerProvider!.appUser!.latitude!,
+                                                                                                         longitude:customerProvider!.appUser!.longitude!),
                                                                                                      markerIcon:const MarkerIcon(
                                                                                                        icon:Icon(Icons.restaurant,
                                                                                                        color:Colors.green,size: 50,)),
@@ -419,12 +419,20 @@ class _OrderState extends State<Order> {
                                                                                                             latitude: drivers?["latitude"],
                                                                                                             longitude: drivers?["longitude"]),
                                                                                                         geo.GeoPoint(
-                                                                                                            latitude: 5.1096452986370196,
-                                                                                                            longitude: -1.2982749938964844),
+                                                                                                            latitude: customerProvider!.appUser!.latitude!,
+                                                                                                            longitude: customerProvider!.appUser!.longitude!),
                                                                                                         roadOption:const RoadOption(
                                                                                                           roadColor: Colors.black,
                                                                                                           roadWidth: 5,
                                                                                                         ));
+                                                                                                    mapController.addMarker(
+                                                                                                      geo.GeoPoint(
+                                                                                                          latitude:drivers?["latitude"],
+                                                                                                          longitude:drivers?["longitude"]),
+                                                                                                      markerIcon:const MarkerIcon(
+                                                                                                          icon:Icon(Icons.motorcycle,
+                                                                                                            color:Colors.green,size: 50,)),
+                                                                                                    );
                                                                                                   }
                                                                                                   // mapController.myLocation();
 

@@ -80,7 +80,10 @@ class _DrawersState extends State<Drawers> {
               Profile(profileUpdate:ProfileUpdate(
                   imagePath: '${customerProvider?.appUser?.image}',
                   check: "see"),)),
-
+              const DrawerListTile(
+                  svg: "map-pin",
+                  title: "Delivery Address",
+                  page: DeliveryMap()),
               const DrawerListTile(
                   svg: "log-out", title: "Log out", page: LoginSignUp())
             ]),
